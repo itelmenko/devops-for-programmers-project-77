@@ -13,6 +13,10 @@ provider "digitalocean" {
   token = var.do_token
 }
 
+resource "digitalocean_domain" "main" {
+  name       = "solidol.site"
+}
+
 resource "digitalocean_project" "project" {
   name        = "hexlet-terraform-03"
   description = "Project for learning Terraform on Hexlet"
@@ -22,7 +26,8 @@ resource "digitalocean_project" "project" {
     digitalocean_droplet.web1.urn,
     digitalocean_droplet.web2.urn,
     digitalocean_loadbalancer.public.urn,
-    digitalocean_database_cluster.main.urn
+    digitalocean_database_cluster.main.urn,
+    digitalocean_domain.main.urn
   ]
 }
 
@@ -43,7 +48,8 @@ resource "digitalocean_droplet" "web2" {
 resource "digitalocean_certificate" "cert" {
   name    = "terra-le-1"
   type    = "lets_encrypt"
-  domains = ["terra.telmenko.ru"]
+  domains = ["solidol.site"]
+  depends_on = [digitalocean_domain.main]
 }
 
 resource "digitalocean_loadbalancer" "public" {
@@ -78,6 +84,13 @@ resource "digitalocean_loadbalancer" "public" {
     digitalocean_droplet.web2.id,
   ]
 }
+
+/*resource "digitalocean_record" "default" {
+  domain = digitalocean_domain.main.id
+  type   = "A"
+  name   = "@"
+  value  = digitalocean_loadbalancer.public.ip
+}*/
 
 resource "digitalocean_database_firewall" "db-firewall" {
   cluster_id = digitalocean_database_cluster.main.id
