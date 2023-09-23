@@ -79,6 +79,20 @@ resource "digitalocean_loadbalancer" "public" {
   ]
 }
 
+resource "digitalocean_database_firewall" "db-firewall" {
+  cluster_id = digitalocean_database_cluster.main.id
+
+  rule {
+    type  = "droplet"
+    value = digitalocean_droplet.web1.id
+  }
+
+  rule {
+    type  = "droplet"
+    value = digitalocean_droplet.web2.id
+  }
+}
+
 resource "digitalocean_database_db" "database" {
   cluster_id = digitalocean_database_cluster.main.id
   name       = "terra-db"
