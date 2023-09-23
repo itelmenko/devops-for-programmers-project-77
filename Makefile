@@ -7,3 +7,7 @@ help:  ## Отображение данного сообщения help
 .PHONY: apply
 apply: ## Применение настроек (создание описанной инфраструктуры в облаке)
 	@ cd terraform && terraform apply
+
+.PHONY: destroy
+destroy: ## Удаление ране созданной инфраструктуры
+	@ cd terraform && terraform destroy
