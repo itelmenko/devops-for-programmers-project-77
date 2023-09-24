@@ -14,7 +14,7 @@ provider "digitalocean" {
 }
 
 resource "digitalocean_domain" "main" {
-  name       = "solidol.site"
+  name       = "kypc3.ru"
 }
 
 resource "digitalocean_project" "project" {
@@ -48,7 +48,7 @@ resource "digitalocean_droplet" "web2" {
 resource "digitalocean_certificate" "cert" {
   name    = "terra-le-1"
   type    = "lets_encrypt"
-  domains = ["solidol.site"]
+  domains = ["kypc3.ru"]
   depends_on = [digitalocean_domain.main]
 }
 
@@ -84,13 +84,6 @@ resource "digitalocean_loadbalancer" "public" {
     digitalocean_droplet.web2.id,
   ]
 }
-
-/*resource "digitalocean_record" "default" {
-  domain = digitalocean_domain.main.id
-  type   = "A"
-  name   = "@"
-  value  = digitalocean_loadbalancer.public.ip
-}*/
 
 resource "digitalocean_database_firewall" "db-firewall" {
   cluster_id = digitalocean_database_cluster.main.id
