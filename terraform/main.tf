@@ -38,7 +38,7 @@ resource "digitalocean_project" "project" {
     digitalocean_droplet.web1.urn,
     digitalocean_droplet.web2.urn,
     digitalocean_loadbalancer.public.urn,
-    //digitalocean_database_cluster.main.urn,
+    digitalocean_database_cluster.main.urn,
     digitalocean_domain.main.urn
   ]
 }
