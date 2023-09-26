@@ -20,3 +20,25 @@ terraform login
 terraform init
 ```
 
+Получение данных об образах
+
+```
+data "digitalocean_images" "ubuntu" {
+  filter {
+    key    = "distribution"
+    values = ["Ubuntu"]
+  }
+}
+
+output "digitalocean_images_data" {
+  value = data.digitalocean_images.ubuntu.images[*]
+}
+```
+
+Последний блок можно сделать с выводом только нужного поля
+
+```
+output "digitalocean_images_data" {
+  value = data.digitalocean_images.ubuntu.images[*].slug
+}
+```

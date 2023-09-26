@@ -13,6 +13,18 @@ provider "digitalocean" {
   token = var.do_token
 }
 
+data "digitalocean_images" "ubuntu" {
+  filter {
+    key    = "distribution"
+    values = ["Ubuntu"]
+  }
+  filter {
+    key    = "name"
+    values = ["Docker"]
+    match_by = "substring"
+  }
+}
+
 resource "digitalocean_domain" "main" {
   name       = "kypc3.ru"
 }
@@ -26,20 +38,20 @@ resource "digitalocean_project" "project" {
     digitalocean_droplet.web1.urn,
     digitalocean_droplet.web2.urn,
     digitalocean_loadbalancer.public.urn,
-    digitalocean_database_cluster.main.urn,
+    //digitalocean_database_cluster.main.urn,
     digitalocean_domain.main.urn
   ]
 }
 
 resource "digitalocean_droplet" "web1" {
-  image  = "ubuntu-22-04-x64"
+  image  = data.digitalocean_images.ubuntu.images.0.slug
   name   = "terra-web-1"
   region = "ams3"
   size   = "s-1vcpu-1gb"
 }
 
 resource "digitalocean_droplet" "web2" {
-  image  = "ubuntu-22-04-x64"
+  image  = data.digitalocean_images.ubuntu.images.0.slug
   name   = "terra-web-2"
   region = "ams3"
   size   = "s-1vcpu-1gb"
