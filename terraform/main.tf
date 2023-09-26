@@ -43,11 +43,17 @@ resource "digitalocean_project" "project" {
   ]
 }
 
+resource "digitalocean_ssh_key" "default" {
+  name       = "Terraform SSH public key"
+  public_key = file("./files/id_rsa_it.pub")
+}
+
 resource "digitalocean_droplet" "web1" {
   image  = data.digitalocean_images.ubuntu.images.0.slug
   name   = "terra-web-1"
   region = "ams3"
   size   = "s-1vcpu-1gb"
+  ssh_keys = [digitalocean_ssh_key.default.fingerprint]
 }
 
 resource "digitalocean_droplet" "web2" {
@@ -55,6 +61,7 @@ resource "digitalocean_droplet" "web2" {
   name   = "terra-web-2"
   region = "ams3"
   size   = "s-1vcpu-1gb"
+  ssh_keys = [digitalocean_ssh_key.default.fingerprint]
 }
 
 resource "digitalocean_certificate" "cert" {
