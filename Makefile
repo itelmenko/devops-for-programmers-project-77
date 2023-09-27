@@ -11,3 +11,16 @@ apply: ## Применение настроек (создание описанн
 .PHONY: destroy
 destroy: ## Удаление ране созданной инфраструктуры
 	@ cd terraform && terraform destroy
+
+.PHONY: vault
+vault: ## Редактирование секретов ansible
+	@ env EDITOR=nano ansible-vault edit ansible/group_vars/webservers/vault.yml
+
+all:
+	@ cd ansible && ansible-galaxy install -r requirements.yml && ansible-playbook playbook.yml --ask-vault-pass -i inventory.ini
+prepare:
+	@ cd ansible && ansible-galaxy install -r requirements.yml && ansible-playbook playbook.yml --ask-vault-pass -i inventory.ini -t prepare
+deploy:
+	@ cd ansible && ansible-galaxy install -r requirements.yml && ansible-playbook playbook.yml --ask-vault-pass -i inventory.ini -t deploy
+datadog:
+	@ cd ansible && ansible-galaxy install -r requirements.yml && ansible-playbook playbook.yml --ask-vault-pass -i inventory.ini -t datadog
