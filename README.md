@@ -42,3 +42,9 @@ output "digitalocean_images_data" {
   value = data.digitalocean_images.ubuntu.images[*].slug
 }
 ```
+
+In case of manual Redmine installation, default user is set as
+
+User name: admin
+
+Password: admin
