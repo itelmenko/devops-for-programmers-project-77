@@ -1,18 +1,3 @@
-terraform {
-  required_providers {
-    digitalocean = {
-      source = "digitalocean/digitalocean"
-      version = "~> 2.0"
-    }
-  }
-}
-
-variable "do_token" {}
-
-provider "digitalocean" {
-  token = var.do_token
-}
-
 data "digitalocean_images" "ubuntu" {
   filter {
     key    = "distribution"
@@ -135,9 +120,4 @@ resource "digitalocean_database_cluster" "main" {
   size       = "db-s-1vcpu-1gb"
   region     = "ams3"
   node_count = 1
-}
-
-output "mysql_service_credentials" {
-  value = "${digitalocean_database_user.db-user.name} ${digitalocean_database_user.db-user.password}"
-  sensitive = true
 }
