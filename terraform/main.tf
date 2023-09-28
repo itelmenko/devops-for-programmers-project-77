@@ -19,7 +19,7 @@ resource "digitalocean_project" "project" {
   description = "Project for learning Terraform on Hexlet"
   purpose     = "Web Application"
   environment = "Development"
-  resources   = [
+  resources = [
     digitalocean_droplet.web1.urn,
     digitalocean_droplet.web2.urn,
     digitalocean_loadbalancer.public.urn,
