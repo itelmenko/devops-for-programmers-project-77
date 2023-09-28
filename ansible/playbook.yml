@@ -59,20 +59,19 @@
           - "output.container.State.Running"
       tags: deploy
 
-    # Datadog Agent installation
-#    - name: Import the Datadog Agent role from the Datadog collection
-#      import_role:
-#        name: datadog.dd.agent
-#      tags: datadog
-#      vars:
-#        datadog_site: "{{ datadog_domain }}"
-#        datadog_api_key: "{{ datadog_key }}"
-#        datadog_checks:
-#          http_check:
-#            init_config:
-#            instances:
-#              - name: Wordpress
-#                url: http://localhost
-#                method: GET
-#                timeout: 10
-#                http_response_status_code: 200
+    - name: Datadog Agent installation
+      import_role:
+        name: datadog.dd.agent
+      tags: datadog
+      vars:
+        datadog_site: "{{ datadog_domain }}"
+        datadog_api_key: "{{ datadog_key }}"
+        datadog_checks:
+          http_check:
+            init_config:
+            instances:
+              - name: Redmine
+                url: http://localhost
+                method: GET
+                timeout: 10
+                http_response_status_code: 200
