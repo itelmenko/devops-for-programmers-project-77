@@ -48,3 +48,12 @@ In case of manual Redmine installation, default user is set as
 User name: admin
 
 Password: admin
+
+Ссылка на приложение https://kypc3.ru/
+
+https://docs.datadoghq.com/account_management/api-app-keys/
+
+https://app.datadoghq.eu/monitors/create/network
+
+https://app.datadoghq.eu/monitors/13229850
+
