@@ -16,13 +16,13 @@
   tasks:
     - name: Set sql_require_primary_key variable to 0 persistently
       ansible.builtin.uri:
-        url: "https://api.digitalocean.com/v2/databases/{{db_cluster_id}}/config"
+        url: "https://api.digitalocean.com/v2/databases/{{ db_cluster_id }}/config"
         method: PATCH
         body_format: json
         status_code: [ 200, 202 ]
         return_content: true
         headers:
-          Authorization: "Bearer {{do_api_token}}"
+          Authorization: "Bearer {{ do_api_token }}"
         body:
           config:
             sql_require_primary_key: false
