@@ -12,9 +12,9 @@ apply: ## Применение настроек (создание описанн
 inventory:
 	@ cd terraform && terraform output -raw ansible_inventory > ../ansible/inventory.ini
 
-.PHONY: env
-env:
-	@ cd terraform && terraform output -raw application_env > ../ansible/templates/.env.j2 && ansible-vault encrypt ../ansible/templates/.env.j2
+.PHONY: db-credentials
+db-credentials:
+	@ cd terraform && terraform output -raw database_credentials > ../ansible/group_vars/all/database-vault.yml && ansible-vault encrypt ../ansible/group_vars/all/database-vault.yml
 
 .PHONY: destroy
 destroy: ## Удаление ране созданной инфраструктуры
@@ -22,7 +22,7 @@ destroy: ## Удаление ране созданной инфраструкт�
 
 .PHONY: vault
 vault: ## Редактирование секретов ansible
-	@ env EDITOR=nano ansible-vault edit ansible/group_vars/all/vault.yml
+	@ env EDITOR=nano ansible-vault edit ansible/group_vars/all/main-vault.yml
 
 all:
 	@ cd ansible && ansible-galaxy install -r requirements.yml && ansible-playbook playbook.yml --ask-vault-pass -i inventory.ini

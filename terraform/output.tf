@@ -6,14 +6,14 @@ output "ansible_inventory" {
     DOC
 }
 
-output "application_env" {
+output "database_credentials" {
   value     = <<-DOC
-    REDMINE_DB_MYSQL=${digitalocean_database_cluster.main.host}
-    REDMINE_DB_PORT=${digitalocean_database_cluster.main.port}
-    REDMINE_DB_DATABASE=${digitalocean_database_cluster.main.database}
-    REDMINE_DB_USERNAME=${digitalocean_database_cluster.main.user}
-    REDMINE_DB_PASSWORD=${digitalocean_database_cluster.main.password}
-    REDMINE_SECRET_KEY_BASE={{redmine_secret}}
+    db_cluster_id: ${digitalocean_database_cluster.main.id}
+    db_host: ${digitalocean_database_cluster.main.host}
+    db_port: ${digitalocean_database_cluster.main.port}
+    db_name: ${digitalocean_database_cluster.main.database}
+    db_user: ${digitalocean_database_cluster.main.user}
+    db_password: ${digitalocean_database_cluster.main.password}
     DOC
   sensitive = true
 }

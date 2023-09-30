@@ -38,7 +38,6 @@
       ansible.builtin.template:
         src: .env.j2
         dest: "{{ env_file_path }}"
-        decrypt: yes
       tags: deploy
 
     - name: Start a container
@@ -66,7 +65,7 @@
       tags: datadog
       vars:
         datadog_site: "{{ datadog_domain }}"
-        datadog_api_key: "{{ datadog_key }}"
+        # datadog_api_key variable is in global space (main-vault.yml)
         datadog_checks:
           http_check:
             init_config:
