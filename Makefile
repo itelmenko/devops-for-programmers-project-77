@@ -8,13 +8,21 @@ help:  ## Отображение данного сообщения help
 apply: ## Применение настроек (создание описанной инфраструктуры в облаке)
 	@ cd terraform && terraform apply
 
+.PHONY: inventory
+inventory:
+	@ cd terraform && terraform output -raw ansible_inventory > ../ansible/inventory.ini
+
+.PHONY: env
+env:
+	@ cd terraform && terraform output -raw application_env > ../ansible/templates/.env.j2 && ansible-vault encrypt ../ansible/templates/.env.j2
+
 .PHONY: destroy
 destroy: ## Удаление ране созданной инфраструктуры
 	@ cd terraform && terraform destroy
 
 .PHONY: vault
 vault: ## Редактирование секретов ansible
-	@ env EDITOR=nano ansible-vault edit ansible/group_vars/webservers/vault.yml
+	@ env EDITOR=nano ansible-vault edit ansible/group_vars/all/vault.yml
 
 all:
 	@ cd ansible && ansible-galaxy install -r requirements.yml && ansible-playbook playbook.yml --ask-vault-pass -i inventory.ini
