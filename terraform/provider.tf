@@ -11,12 +11,8 @@ terraform {
   }
 }
 
-variable "do_token" {
+variable "do_api_token" {
   type = string
-}
-
-provider "digitalocean" {
-  token = var.do_token
 }
 
 variable "datadog_api_key" {
@@ -25,6 +21,10 @@ variable "datadog_api_key" {
 
 variable "datadog_app_key" {
   type = string
+}
+
+provider "digitalocean" {
+  token = var.do_api_token
 }
 
 # https://docs.datadoghq.com/account_management/api-app-keys/
