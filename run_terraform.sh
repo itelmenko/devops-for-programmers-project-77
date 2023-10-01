@@ -11,7 +11,11 @@ then
 fi
 
 echo "Exporting variables from vault ..."
-eval `echo "$vault_content" | awk -F ":" '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print "export TF_VAR_" $1 "=" $2}'`
+`echo "$vault_content" | awk -F ":" '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print "export TF_VAR_" $1 "=" $2}'`
+
+echo "Exporting variables from common.yml ..."
+common_content=`cat ansible/group_vars/all/common.yml`
+`echo "$common_content" | awk -F ":" '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print "export TF_VAR_" $1 "=" $2}'`
 
 case $1 in
 

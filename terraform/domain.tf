@@ -1,10 +1,10 @@
 resource "digitalocean_domain" "main" {
-  name = "kypc3.ru"
+  name = var.app_domain
 }
 
 resource "digitalocean_certificate" "cert" {
   name       = "terra-le-1"
   type       = "lets_encrypt"
-  domains    = ["kypc3.ru"]
+  domains    = [var.app_domain]
   depends_on = [digitalocean_domain.main]
 }

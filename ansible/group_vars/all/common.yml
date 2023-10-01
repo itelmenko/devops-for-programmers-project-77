@@ -1,5 +1,2 @@
-ansible_user: root
-ansible_ssh_private_key_file: ~/.ssh/id_rsa_it
-destination_path: /root/app
-env_file_path: "{{ destination_path }}/.env"
 datadog_domain: datadoghq.eu
+app_domain: kypc3.ru
