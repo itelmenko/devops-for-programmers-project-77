@@ -1,4 +1,4 @@
 resource "digitalocean_ssh_key" "default" {
   name       = "Terraform SSH public key"
-  public_key = file("./files/id_rsa_it.pub")
+  public_key = var.ssh_public_key
 }

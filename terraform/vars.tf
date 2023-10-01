@@ -17,3 +17,7 @@ variable "datadog_domain" {
 variable "app_domain" {
   type = string
 }
+
+variable "ssh_public_key" {
+  type = string
+}

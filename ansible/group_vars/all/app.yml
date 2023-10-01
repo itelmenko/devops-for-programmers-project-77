@@ -1,2 +1,0 @@
-destination_path: /root/app
-env_file_path: "{{ destination_path }}/.env"
