@@ -7,4 +7,3 @@ secrets.*
 *vault.yml
 /ansible/templates/.env.j2
 /ansible/inventory.ini
-/terraform/files/id_rsa_it.pub
