@@ -3,7 +3,7 @@
 echo "Trying to get variables from Ansible Vault"
 echo ""
 
-vault_content=`ansible-vault decrypt --output - ansible/group_vars/all/main-vault.yml`
+vault_content=`ansible-vault decrypt --output - ansible/group_vars/all/main-vault.yml | grep -o '^[^#]*'`
 if [ -z "$vault_content" ]
 then
     echo "Empty data or incorrect password!"
@@ -14,7 +14,7 @@ echo "Exporting variables from vault ..."
 `echo "$vault_content" | awk -F ":" '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print "export TF_VAR_" $1 "=" $2}'`
 
 echo "Exporting variables from common.yml ..."
-eval `awk -F ":" '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print "export TF_VAR_" $1 "=" $2}' < ansible/group_vars/all/common.yml`
+eval ` grep -o '^[^#]*' ansible/group_vars/all/common.yml | awk -F ":" '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print "export TF_VAR_" $1 "=" $2}'`
 
 case $1 in
 
