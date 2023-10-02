@@ -5,5 +5,4 @@ secrets.*
 /terraform/.terraform/
 /terraform/.terraform.lock.hcl
 *vault.yml
-/ansible/templates/.env.j2
 /ansible/inventory.ini
