@@ -20,6 +20,10 @@ creds: ## Создание файла секретов для БД и добав
 destroy: ## Удаление ране созданной инфраструктуры
 	@ bash ./run_terraform.sh destroy && rm ./ansible/group_vars/all/database-vault.yml ./ansible/inventory.ini
 
+.PHONY: encrypt
+encrypt: ## Шифрование секретов основных секретов Ansible Vault
+	@ ansible-vault enrypt ansible/group_vars/all/main-vault.yml
+
 .PHONY: vault
 vault: ## Редактирование основных секретов Ansible Vault
 	@ env EDITOR=nano ansible-vault edit ansible/group_vars/all/main-vault.yml
