@@ -29,6 +29,14 @@ ns2.digitalocean.com
 ns3.digitalocean.com
 ```
 
+Changing NS records may take up to 24 hours
+
+
+
+### Ansible Vault password
+
+Please, use same Ansible Vault password on each step where it required
+
 
 
 ### Create base files and settings
@@ -37,8 +45,8 @@ ns3.digitalocean.com
 2. Create file `ansible/group_vars/all/main-vault.yml` and fill variables  in it. See above for details
 3. Fill variables  in `ansible/group_vars/all/common.yml`. See above for details
 4. Encrypt your secrets by `make encrypt` command
-5. `terraform login` (`terraform init` ?)
-6. Fill settings of Terraform's backend in `terraform/backend.tf`
+5. Fill settings of Terraform's backend in `terraform/backend.tf`
+6. Login in terraform CLI by `make login` command. And init workspace by `make init` 
 
 
 
