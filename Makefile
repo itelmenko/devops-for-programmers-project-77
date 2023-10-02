@@ -22,7 +22,7 @@ destroy: ## Удаление ране созданной инфраструкт�
 
 .PHONY: encrypt
 encrypt: ## Шифрование секретов основных секретов Ansible Vault
-	@ ansible-vault enrypt ansible/group_vars/all/main-vault.yml
+	@ ansible-vault encrypt ansible/group_vars/all/main-vault.yml
 
 .PHONY: vault
 vault: ## Редактирование основных секретов Ansible Vault
